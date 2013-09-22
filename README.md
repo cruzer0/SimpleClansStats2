@@ -1,4 +1,4 @@
-Simple Clans Stats 2
+# SimpleClansStats2
 
 The installation for this Simple Clans extension is very simple. You simply add
 all the files into either the root, or a directory within your Website. I recommend
