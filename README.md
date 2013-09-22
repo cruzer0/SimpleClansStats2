@@ -14,7 +14,6 @@ After putting all the files into your selected folder, you need to modify config
 #### Step 3
 ---
 For this web interface to work, you will need to be running SimpleClans2 in MySQL Mode. To find out how to do this, consult the SimpleClans BukkitDev page: http://dev.bukkit.org/server-mods/simpleclans/
----
 
 ### Credits
 Original version by IroN1979: (http://dev.bukkit.org/bukkit-plugins/simpleclansstats/) and by ProjectNarna (http://forums.bukkit.org/threads/web-admin-narna-simpleclanstats.83389/)
