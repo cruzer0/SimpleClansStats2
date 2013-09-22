@@ -1,5 +1,4 @@
-<?
-
+<?php
 /* ===================== Database Settings =====================
  * Database from SimpleClans2 (Same values as in your config.yml)
  */
@@ -40,5 +39,5 @@ if ($db->connect_errno) {
     echo $db->connect_error;
     exit();
 }
-$db->set_charset("UTF-8");
+$db->set_charset("UTF8");
 ?>
