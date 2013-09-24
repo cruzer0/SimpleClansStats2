@@ -67,7 +67,7 @@
     </div>
     <div class="col-md-4">
         <?php
-        $last10killq = $db->query("SELECT *, (SELECT name FROM sc2_players WHERE attacker = id ) AS `attacker_name`, (SELECT name FROM sc2_players WHERE victim = id ) AS `victim_name` FROM sc2_kills ORDER BY date DESC LIMIT 10");
+        $last10killq = $db->query("SELECT *, (SELECT tag FROM sc2_clans WHERE id = attacker_clan) AS attacker_clantag, (SELECT tag FROM sc2_clans WHERE id = victim_clan) AS victim_clantag, (SELECT name FROM sc2_players WHERE attacker = id ) AS `attacker_name`, (SELECT name FROM sc2_players WHERE victim = id ) AS `victim_name` FROM sc2_kills ORDER BY date DESC LIMIT 10");
         if (!empty($db->error)) {
             echo '<div class="alert alert-danger">' . $db->error . '</div>';
         }
@@ -87,11 +87,11 @@
                 while ($row = $last10killq->fetch_array(MYSQLI_ASSOC)) {
                     echo '<tr>';
                     echo '<td>';
-                    echo ($row["attacker_clan"] != "-1") ? addcolors($row["clantag"]) . " " : NULL;
+                    echo ($row["attacker_clan"] != "-1") ? addcolors($row["attacker_clantag"]) . " " : NULL;
                     echo '<a class="text-success" data-toggle="modal" onclick="ajaxModal(\'' . $row["attacker_name"] . '\', \'player\');" href="#Detail">' . $row["attacker_name"] . '</a></td>';
                     echo '<td>vs</td>';
                     echo '<td>';
-                    echo ($row["victim_clan"] != "-1") ? addcolors($row["clantag"]) . " " : NULL;
+                    echo ($row["victim_clan"] != "-1") ? addcolors($row["victim_clantag"]) . " " : NULL;
                     echo '<a class="text-danger" data-toggle="modal" onclick="ajaxModal(\'' . $row["victim_name"] . '\', \'player\');" href="#Detail">' . $row["victim_name"] . '</a></td>';
                     echo '</tr>';
                     $x++;

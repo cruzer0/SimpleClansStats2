@@ -1,5 +1,6 @@
-<p class="text-center"><img src="assets/img/SimpleClansStats2Logo.png"></p>
+<p class="text-center"><a href="http://dev.bukkit.org/server-mods/simpleclansstats" title="SimpleClansStats2" target="_blank"><img src="assets/img/SimpleClansStats2Logo.png"></a></p>
 <hr>
+<h3>Info</h3>
 <div class="row">
     <div class="col-md-6">
         <dl class="dl-horizontal" style='margin:0'>
@@ -26,4 +27,9 @@
         </p>
     </div>
 </div>
-<br><br>
+<h3>Credits</h3>
+<ul>
+    <li>This Script was made by <a href="http://www.postiglione.at/">Luca Postiglione</a>.</li>
+    <li>SimpleClansStats1 by <a href="http://mineplanet.de">Iron79 / Mineplanet.de</a>.</li>
+    <li><a href="http://dev.bukkit.org/bukkit-plugins/simpleclans/">SimpleClans</a> by <a href="http://dev.bukkit.org/profiles/p000ison/">p000ison</a>.</li>
+</ul>

@@ -1,48 +1,42 @@
+<div class="page-header">
+    <h1>Players</h1>
+</div>
 <?php
-//-------------------------------------------------------------------------------------------------------
-  function get_leaders($civ, $neu, $riv){ $sSQL = "SELECT *, IF ( deaths = 0 AND (civilian_kills * $civ + neutral_kills * $neu + rival_kills * $riv) = 0, 0, IF(civilian_kills * $civ + neutral_kills * $neu + rival_kills * $riv, civilian_kills * $civ + neutral_kills * $neu + rival_kills * $riv, 1) / IF( deaths, deaths, 1)) as KDR from sc_players order by KDR DESC LIMIT 100;";
-
-$result = @mysql_query($sSQL) or die(mysql_error()); while($tmp=@mysql_fetch_assoc($result)) { $return[] = $tmp; } return $return; }
-
-$i=1;
-//-------------------------------------------------------------------------------------------------------
-
-echo "<table align='center' width='800px' border='0'>"; 
-echo "<tr><th align='center' colspan=8 style='font-size:150%'>Top 100 Player</tr>"; 
-echo "<tr>"; 
-echo "<th align='left' width='20px'>Rank</th>
-<th align='left' width='20px'>Face</th>
-<th align='left' width='130px'>Player</th>
-<th align='left' width='50px'>Clan</th>
-<th align='left' width='50px'>KDR</th>
-<th align='left' width='120px'>Rivals</th>
-<th align='left' width='120px'>Neutrals</th>
-<th align='left' width='120px'>Civilians</th>
-<th align='left' width='100px'>Deaths</th></tr>"; 
-
-foreach ( get_leaders($bascivi, $baseneu, $baseriv) as $member ) {
-
-$kdrges = $member['KDR'];
-$kdrnumber = number_format($kdrges, 1, '.', '');
-$rang = $member['leader'];
-
-echo "<tr class='clanmember' style='cursor:pointer;' onclick='get_member_details(\"".$member['name']."\")'> 
-<td align='left' width='20px'>";
-echo $i++;
-echo "<td align='center' width='20px'>";
-if( $dynmap !== "####" ) {echo"<img src='http://$dynmap/tiles/faces/16x16/".$member['name'].".png' /></td>";} else {echo"<img height='16' width='16' src='https://minotar.net/avatar/".$member['name']."/16' /></td>";} 
-echo "<td align='left' width='130px'>".substr($member['name'], 0, 12)."</td>
-<td align='left' width='50px'>".$member['tag']."</td> 
-<td align='left' width='50px'>";
-echo  $kdrnumber;
-echo "</td> 
-<td align='left' width='120px'>".$member['rival_kills']."</td> 
-<td align='left' width='120px'>".$member['neutral_kills']."</td> 
-<td align='left' width='120px'>".$member['civilian_kills']."</td> 
-<td align='left' width='100px'>".$member['deaths']."</td> </tr><tr>
-<td class='clanmember_details' id='".$member['name']."' colspan='9'></td></tr>"; } 
-echo "</table>"; 
-
-//-------------------------------------------------------------------------------------------------------
- 
- ?>
+$playerq = $db->query("SELECT *, IF ( deaths = 0 AND (civilian_kills * $civ + neutral_kills * $neu + rival_kills * $riv) = 0, 0, IF(civilian_kills * $civ + neutral_kills * $neu + rival_kills * $riv, civilian_kills * $civ + neutral_kills * $neu + rival_kills * $riv, 1) / IF( deaths, deaths, 1)) as KDR, (civilian_kills + neutral_kills + rival_kills) AS kills, IF ( clan = '-1', '-1', (SELECT tag FROM sc2_clans WHERE id=sc2_players.clan) ) AS clantag FROM sc2_players order by KDR DESC");
+if (!empty($db->error)) {
+    echo '<div class="alert alert-danger">' . $db->error . '</div>';
+}
+?>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th colspan="2">Name</th>
+            <th>Clan</th>
+            <th>KDR</th>
+            <th>Kills</th>
+            <th>Deaths</th>
+            <th>Join Date</th>
+            <th>Last Seen</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        $x = 1;
+        while ($row = $playerq->fetch_array(MYSQLI_ASSOC)) {
+            echo '<tr>';
+            echo '<td>' . $x . '.</td>';
+            echo '<td width="40"><img src="images/avatar.php?name=' . $row["name"] . '&size=24"></td>';
+            echo '<td><a data-toggle="modal" onclick="ajaxModal(\'' . $row["name"] . '\', \'player\');" href="#Detail">' . $row["name"] . '</a></td>';
+            echo ($row["clan"] != "-1") ? '<td>' . addcolors($row["clantag"]) . '</td>' : '<td></td>';
+            echo '<td>' . round($row["KDR"], 1) . '</td>';
+            echo '<td>' . $row["kills"] . '</td>';
+            echo '<td>' . $row["deaths"] . '</td>';
+            echo '<td>' . $row["join_date"] . '</td>';
+            echo '<td>' . $row["last_seen"] . '</td>';
+            echo '</tr>';
+            $x++;
+        }
+        ?>
+    </tbody>
+</table>

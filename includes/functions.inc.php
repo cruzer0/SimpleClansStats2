@@ -27,7 +27,7 @@ function addcolors($string) {
     $string = str_replace("§0", "§g", $string);
     $motdarr = explode("§", $string);
     $spans = 0;
-    $colored = "";
+    $colored = '<span class="colored">';
 
     foreach ($motdarr as $row) {
         if (!isset($isset)) {
@@ -57,6 +57,6 @@ function addcolors($string) {
         $colored .= "</span>";
         $spans--;
     }
-    return $colored;
+    return $colored . "</span>";
 }
 ?>
