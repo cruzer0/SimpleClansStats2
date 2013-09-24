@@ -2,11 +2,11 @@
 /* ===================== Database Settings =====================
  * Database from SimpleClans2 (Same values as in your config.yml)
  */
-$dbhost = 'mc.realpvp.eu';
+$dbhost = 'localhost';
 $dbport = 3306;
-$dbuser = 'ni16467_1_DB';
-$dbpass = '18WMpsph';
-$dbname = 'ni16467_1_DB';
+$dbuser = 'root';
+$dbpass = 'password';
+$dbname = 'minecraft';
 
 /* ===================== Website Settings =====================
  * $sitelogo <- There you can set your logo. If you haven't one
