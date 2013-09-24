@@ -7,6 +7,7 @@ require_once 'includes/functions.inc.php';
 <head>
     <title><?php echo $sitename; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
 
     <!-- Le CSS -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -19,47 +20,50 @@ require_once 'includes/functions.inc.php';
 </head>
 
 <body>
-    <div class="container">
-        <div class="navbar navbar-default">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#"><?php echo empty($sitelogo) ? $sitename : '<img src="' . $sitelogo . '" alt="' . $sitename . '">'; ?></a>
+    <div id="wrap">
+        <div class="container">
+            <div class="navbar navbar-default">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><?php echo empty($sitelogo) ? $sitename : '<img src="' . $sitelogo . '" alt="' . $sitename . '">'; ?></a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li <?php echo ($_GET["show"] == "home") ? 'class="active"' : NULL; ?>><a href="index.php?show=home">Home</a></li>
+                        <li <?php echo ($_GET["show"] == "clans") ? 'class="active"' : NULL; ?>><a href="index.php?show=clans">Clans</a></li>
+                        <li <?php echo ($_GET["show"] == "players") ? 'class="active"' : NULL; ?>><a href="index.php?show=players">Players</a></li>
+                        <li <?php echo ($_GET["show"] == "info") ? 'class="active"' : NULL; ?>><a href="index.php?show=info">Info</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.php?show=home">Home</a></li>
-                    <li><a href="index.php?show=clans">Clans</a></li>
-                    <li><a href="index.php?show=players">Players</a></li>
-                    <li><a href="index.php?show=info">Info</a></li>
-                </ul>
-            </div><!--/.nav-collapse -->
+            <?php
+            switch ($_GET['show']) {
+                case "info":
+                    include("includes/info.php");
+                    break;
+                case "players":
+                    include("includes/players.php");
+                    break;
+                case "clans":
+                    include("includes/clans.php");
+                    break;
+                case "home":
+                    include("includes/home.php");
+                    break;
+                default:
+                    include("includes/home.php");
+                    break;
+            }
+            ?>
         </div>
-        <?php
-        switch ($_GET['show']) {
-            case "info":
-                include("includes/info.php");
-                break;
-            case "players":
-                include("includes/players.php");
-                break;
-            case "clans":
-                include("includes/clans.php");
-                break;
-            case "home":
-                include("includes/home.php");
-                break;
-            default:
-                include("includes/home.php");
-                break;
-        }
-        ?>
     </div>
     <div id="footer">
         <div class="container">
+            <!-- You are not allowed to remove this credits -->
             <p class="text-muted credit"><a href='http://dev.bukkit.org/server-mods/simpleclansstats' target='_blank'>SimpleClansStats2</a> by <a href="http://www.postiglione.at/" target="_blank">Luca Postiglione</a>.</p>
         </div>
     </div>
